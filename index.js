@@ -68,14 +68,30 @@ app.delete( '/api/persons/:id', ( request, response ) =>
     response.status( 204 ).end()
 } )
 
-app.post( '/api/persons', ( request, response ) =>
+const generateId = () =>
 {
     const maxId = persons.length > 0
         ? Math.max( ...persons.map( n => n.id ) )
         : 0
+    return maxId + 1
+}
 
-    const person = request.body
-    person.id = maxId + 1
+app.post( '/api/persons', ( request, response ) =>
+{
+    const body = request.body
+
+    if ( !body.content )
+    {
+        return response.status( 400 ).json( {
+            error: 'content missing'
+        } )
+    }
+
+    const person = {
+        content: body.content,
+        important: body.important || false,
+        id: generateId(),
+    }
 
     persons = persons.concat( person )
 
