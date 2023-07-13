@@ -35,7 +35,7 @@ let persons = [
 app.get( '/info', ( request, response ) =>
 {
     now = new Date()
-    response.send(`
+    response.send( `
         <p>Phonebook has info for ${ persons.length } people </p>
         <p>${ now }</p>
     ` )
@@ -70,12 +70,16 @@ app.delete( '/api/persons/:id', ( request, response ) =>
 
 app.post( '/api/persons', ( request, response ) =>
 {
+    const maxId = persons.length > 0
+        ? Math.max( ...persons.map( n => n.id ) )
+        : 0
+
     const person = request.body
-    console.log( person )
+    person.id = maxId + 1
+
+    persons = persons.concat( person )
+
     response.json( person )
-    //
-    //
-    // ...
 } )
 
 const PORT = 3001
