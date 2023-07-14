@@ -64,6 +64,8 @@ app.get( '/api/persons', ( request, response ) =>
     } )
 } )
 
+//people = await Person.find( { name: body.name } )
+
 //
 app.get( '/api/persons/:id', ( request, response ) =>
 {
@@ -88,14 +90,6 @@ app.delete( '/api/persons/:id', ( request, response ) =>
     response.status( 204 ).end()
 } )
 
-//
-// const generateId = () =>
-// {
-//     const maxId = persons.length > 0
-//         ? Math.max( ...persons.map( n => n.id ) )
-//         : 0
-//     return maxId + 1
-// }
 
 app.post( '/api/persons', async ( request, response ) =>
 {
