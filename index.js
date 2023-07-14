@@ -83,13 +83,15 @@ app.get( '/api/persons/:id', ( request, response, next ) =>
         .catch( error => next( error ) )
 } )
 
-//
-app.delete( '/api/persons/:id', ( request, response ) =>
+app.delete( '/api/persons/:id', ( request, response, next ) =>
 {
-    const id = Number( request.params.id )
-    persons = persons.filter( p => p.id !== id )
-
-    response.status( 204 ).end()
+    console.log(`DELETE request.params.id: ${request.params.id}`)
+    Person.findByIdAndRemove( request.params.id )
+        .then( result =>
+        {
+            response.status( 204 ).end()
+        } )
+        .catch( error => next( error ) )
 } )
 
 
