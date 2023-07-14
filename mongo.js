@@ -16,12 +16,22 @@ const url =
 mongoose.set( 'strictQuery', false )
 mongoose.connect( url )
 
+
 const personSchema = new mongoose.Schema( {
     name: String,
     number: String,
 } )
 
 const Person = mongoose.model( 'Person', personSchema )
+
+if ( !name || !number )
+{
+    console.log( "number or name not supplied" )
+    console.log( "listing entries" )
+    Person.find({}).then(persons => {
+        console.log( `persons: ${persons}`)
+    })
+}
 
 const person = new Person( {
     name: name,
@@ -30,6 +40,6 @@ const person = new Person( {
 
 person.save().then( result =>
 {
-    console.log( `added ${result.name} ${result.number} to phonebook\n` )
+    console.log( `added ${ result.name } ${ result.number } to phonebook\n` )
     mongoose.connection.close()
 } )
