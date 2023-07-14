@@ -4,7 +4,7 @@ const cors = require( 'cors' )
 
 require( 'dotenv' ).config()
 const Person = require( './models/person' )
-const PORT = process.env.PORT || 3001
+const PORT = pFrocess.env.PORT || 3001
 
 const app = express()
 app.use( express.static( 'build' ) )
