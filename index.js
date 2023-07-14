@@ -1,13 +1,14 @@
 const express = require( 'express' )
 const morgan = require( 'morgan' )
-const cors = require('cors')
+const cors = require( 'cors' )
 
+require( 'dotenv' ).config()
+const Person = require( './models/person' )
+const PORT = process.env.PORT || 3001
 
 const app = express()
-
 app.use( express.json() )
-
-app.use(cors())
+app.use( cors() )
 
 morgan.token( 'body', req =>
 {
@@ -16,7 +17,7 @@ morgan.token( 'body', req =>
 
 app.use( morgan( ':method :url :status :res[content-length] - :response-time ms :body' ) )
 
-app.use(express.static('build'))
+app.use( express.static( 'build' ) )
 
 let persons = [
     {
@@ -126,7 +127,6 @@ app.post( '/api/persons', ( request, response ) =>
     response.json( person )
 } )
 
-const PORT = process.env.PORT || 3001
 app.listen( PORT, () =>
 {
     console.log( `Server running on port ${ PORT }` )
