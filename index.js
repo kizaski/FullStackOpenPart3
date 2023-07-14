@@ -18,19 +18,7 @@ morgan.token( 'body', req =>
 app.use( morgan( ':method :url :status :res[content-length] - :response-time ms :body' ) )
 
 
-const errorHandler = ( error, request, response, next ) =>
-{
-    console.error( error.message )
 
-    if ( error.name === 'CastError' )
-    {
-        return response.status( 400 ).send( { error: 'malformatted id' } )
-    }
-
-    next( error )
-}
-// this has to be the last loaded middleware.
-app.use( errorHandler )
 
 // let persons = [
 //     {
@@ -142,6 +130,28 @@ app.post( '/api/persons', async ( request, response ) =>
         response.json( savedPerson )
     } )
 } )
+
+const errorHandler = ( error, request, response, next ) =>
+{
+    console.error( error.message )
+
+    if ( error.name === 'CastError' )
+    {
+        return response.status( 400 ).send( { error: 'malformatted id' } )
+    }
+
+    next( error )
+}
+// this has to be the last loaded middleware.
+app.use( errorHandler )
+
+const unknownEndpoint = ( request, response ) =>
+{
+    response.status( 404 ).send( { error: 'unknown endpoint' } )
+}
+// handler of requests with unknown endpoint
+app.use( unknownEndpoint )
+
 
 app.listen( PORT, () =>
 {
