@@ -99,7 +99,7 @@ app.post( '/api/persons', async ( request, response ) =>
 {
     const body = request.body
 
-    if ( body.name === "" || body.number === null || body.number === undefined ) // undefined || null || 
+    if ( body.name === "" || body.number === null || body.number === undefined ) 
     {
         return response.status( 400 ).json( {
             error: 'name missing'
