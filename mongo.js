@@ -30,6 +30,7 @@ if ( !name || !number )
     console.log( "listing entries" )
     Person.find({}).then(persons => {
         console.log( `persons: ${persons}`)
+        mongoose.connection.close()
     })
 }
 
