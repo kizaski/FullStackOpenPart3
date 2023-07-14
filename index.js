@@ -51,7 +51,7 @@ app.use( morgan( ':method :url :status :res[content-length] - :response-time ms 
 app.get( '/info', ( request, response ) =>
 {
     now = new Date()
-    count = Person.length //+ 1
+    count = Person.length + 1
     response.send( `
         <p>Phonebook has info for ${ count } people </p>
         <p>${ now }</p>
