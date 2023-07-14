@@ -85,7 +85,7 @@ app.get( '/api/persons/:id', ( request, response, next ) =>
 
 app.delete( '/api/persons/:id', ( request, response, next ) =>
 {
-    console.log(`DELETE request.params.id: ${request.params.id}`)
+    console.log( `DELETE request.params.id: ${ request.params.id }` )
     Person.findByIdAndRemove( request.params.id )
         .then( result =>
         {
@@ -99,14 +99,14 @@ app.post( '/api/persons', async ( request, response ) =>
 {
     const body = request.body
 
-    if ( !body.name )
+    if ( body.name === "" || body.number === null || body.number === undefined ) // undefined || null || 
     {
         return response.status( 400 ).json( {
             error: 'name missing'
         } )
     }
 
-    if ( !body.number )
+    if ( body.number === "" || body.number === null || body.number === undefined )
     {
         return response.status( 400 ).json( {
             error: 'number missing'
