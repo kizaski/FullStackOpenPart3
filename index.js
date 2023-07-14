@@ -7,6 +7,7 @@ const Person = require( './models/person' )
 const PORT = process.env.PORT || 3001
 
 const app = express()
+app.use( express.static( 'build' ) )
 app.use( express.json() )
 app.use( cors() )
 
@@ -16,7 +17,20 @@ morgan.token( 'body', req =>
 } )
 app.use( morgan( ':method :url :status :res[content-length] - :response-time ms :body' ) )
 
-app.use( express.static( 'build' ) )
+
+const errorHandler = ( error, request, response, next ) =>
+{
+    console.error( error.message )
+
+    if ( error.name === 'CastError' )
+    {
+        return response.status( 400 ).send( { error: 'malformatted id' } )
+    }
+
+    next( error )
+}
+// this has to be the last loaded middleware.
+app.use( errorHandler )
 
 // let persons = [
 //     {
@@ -65,7 +79,7 @@ app.get( '/api/persons', ( request, response ) =>
 } )
 
 
-app.get( '/api/persons/:id', ( request, response ) =>
+app.get( '/api/persons/:id', ( request, response, next ) =>
 {
     Person.findById( request.params.id )
         .then( person =>
@@ -78,11 +92,7 @@ app.get( '/api/persons/:id', ( request, response ) =>
                 response.status( 404 ).end()
             }
         } )
-        .catch( error =>
-        {
-            console.log( error )
-            response.status(400).send({ error: 'malformatted id' })
-        } )
+        .catch( error => next( error ) )
 } )
 
 //
