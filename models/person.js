@@ -12,6 +12,7 @@ mongoose.connect( url )
     .then( ( result ) => { console.log( 'connected to MongoDB' ) } )
     .catch( ( error ) => { console.log( 'error connecting to MongoDB:', error.message ) } )
 
+//Add validation; A phone number must have: ... (exc 3.20)
 const personSchema = new mongoose.Schema( {
     name: {
         type: String,
