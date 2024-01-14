@@ -128,6 +128,12 @@ app.post( '/api/persons', async ( request, response, next ) =>
         .catch( error => next( error ) )
 } )
 
+app.put( '/api/persons', async ( request, response, next ) =>
+{
+    //todo
+} )
+
+
 const errorHandler = ( error, request, response, next ) =>
 {
     console.error( error.message )
