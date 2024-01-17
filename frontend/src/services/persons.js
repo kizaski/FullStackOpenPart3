@@ -1,8 +1,8 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons' // if using json-server
+// const baseUrl = 'http://localhost:3001/persons' // if using json-server
 // const baseUrl = 'http://localhost:3001/api/persons' // if using part3's api
 // or 
-// const baseUrl = '/api/persons'
+const baseUrl = '/api/persons'
 
 const getAll = () =>
 {
