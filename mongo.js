@@ -20,15 +20,7 @@ mongoose.connect( url )
 const personSchema = new mongoose.Schema( {
     name: {
         type: String,
-        // minLength: 3,
-        validate: {
-            validator: function ( v )
-            {
-                console.log("validating: ",v)
-                return /[a-zA-Z]{3,}/.test( v )
-            },
-            message: props => `${ props.value } is not a valid name!`
-        },
+        minLength: 3,
         required: true
     },
     number: {
