@@ -50,8 +50,8 @@ app.use( morgan( ':method :url :status :res[content-length] - :response-time ms 
 
 app.get( '/info', ( request, response ) =>
 {
-    now = new Date()
-    count = Person.length + 1
+    let now = new Date()
+    let count = Person.length + 1
     response.send( `
         <p>Phonebook has info for ${ count } people </p>
         <p>${ now }</p>
@@ -89,6 +89,7 @@ app.delete( '/api/persons/:id', ( request, response, next ) =>
     Person.findByIdAndRemove( request.params.id )
         .then( result =>
         {
+            console.log('result: ', result)
             response.status( 204 ).end()
         } )
         .catch( error => next( error ) )
@@ -106,7 +107,7 @@ app.post( '/api/persons', async ( request, response, next ) =>
         } )
     }
 
-    people = await Person.find( { name: body.name } )
+    let people = await Person.find( { name: body.name } )
 
     if ( people.some( e => e.name === body.name ) )
     {

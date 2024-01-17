@@ -1,4 +1,4 @@
-import { react, useState } from 'react'
+import { useState } from 'react'
 import personService from '../services/persons'
 
 const PersonForm = ( props ) =>
@@ -38,7 +38,7 @@ const PersonForm = ( props ) =>
     }
     else
     {
-      const dupe = props.persons.find( p => p.name == newName )
+      const dupe = props.persons.find( p => p.name === newName )
       if ( window.confirm( `${ dupe.name } is already added to the phonebook. Replace the old one?` ) )
       {
         personService
