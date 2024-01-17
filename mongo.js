@@ -18,7 +18,11 @@ mongoose.connect( url )
 
 
 const personSchema = new mongoose.Schema( {
-    name: String,
+    name: {
+        type: String, 
+        minLength: 3, 
+        required: true
+    },
     number: String,
 } )
 
@@ -28,10 +32,11 @@ if ( !name || !number )
 {
     console.log( "number or name not supplied" )
     console.log( "listing entries" )
-    Person.find({}).then(persons => {
-        console.log( `persons: ${persons}`)
+    Person.find( {} ).then( persons =>
+    {
+        console.log( `persons: ${ persons }` )
         mongoose.connection.close()
-    })
+    } )
 }
 
 const person = new Person( {
