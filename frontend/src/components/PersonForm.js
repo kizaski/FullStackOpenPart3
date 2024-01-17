@@ -61,6 +61,11 @@ const PersonForm = ( props ) =>
             props.setMessage( `Person '${ newPerson }' was already removed from server` )
             setTimeout( () => { props.setMessage( null ) }, 5000 )
 
+            // console.log( error.response.data.error )
+            // props.setMessageType( "error" )
+            // props.setMessage( `${ error.response.data.error }` )
+            // setTimeout( () => { props.setMessage( null ) }, 5000 )
+
             setPersons( persons.filter( p => p.id !== dupe.id ) )
           } )
       }
