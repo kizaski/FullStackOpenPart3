@@ -134,6 +134,13 @@ app.put( '/api/persons', async ( request, response, next ) =>
 } )
 
 
+const unknownEndpoint = ( request, response ) =>
+{
+    response.status( 404 ).send( { error: 'unknown endpoint' } )
+}
+// handler of requests with unknown endpoint
+app.use( unknownEndpoint )
+
 const errorHandler = ( error, request, response, next ) =>
 {
     console.error( error.message )
@@ -150,13 +157,6 @@ const errorHandler = ( error, request, response, next ) =>
 }
 // this has to be the last loaded middleware.
 app.use( errorHandler )
-
-const unknownEndpoint = ( request, response ) =>
-{
-    response.status( 404 ).send( { error: 'unknown endpoint' } )
-}
-// handler of requests with unknown endpoint
-app.use( unknownEndpoint )
 
 
 app.listen( PORT, () =>
