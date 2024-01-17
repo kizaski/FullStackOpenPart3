@@ -138,7 +138,7 @@ app.put( '/api/persons/:id', async ( request, response, next ) =>
     } )
 
     console.log( `UPDATE request.params.id: ${ request.params.id }` )
-    Person.findByIdAndUpdate( request.params.id, person, { new: true } )
+    Person.findByIdAndUpdate( request.params.id, person, { new: true, runValidators: true } ) // runValidators doesnt work
         .then( savedPerson =>
         {
             response.json( savedPerson )
