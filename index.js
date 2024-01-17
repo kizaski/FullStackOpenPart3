@@ -128,9 +128,22 @@ app.post( '/api/persons', async ( request, response, next ) =>
         .catch( error => next( error ) )
 } )
 
-app.put( '/api/persons', async ( request, response, next ) =>
+app.put( '/api/persons/:id', async ( request, response, next ) =>
 {
-    //todo
+    const body = request.body
+
+    const person = ( {
+        name: body.name,
+        number: body.number
+    } )
+
+    console.log( `UPDATE request.params.id: ${ request.params.id }` )
+    Person.findByIdAndUpdate( request.params.id, person )
+        .then( savedPerson =>
+        {
+            response.json( savedPerson )
+        } )
+        .catch( error => next( error ) )
 } )
 
 

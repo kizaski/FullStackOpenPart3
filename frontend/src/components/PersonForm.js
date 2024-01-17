@@ -43,15 +43,17 @@ const PersonForm = ( props ) =>
             props.setMessage( `Updated person '${ newPerson.name }'` )
             setTimeout( () => { props.setMessage( null ) }, 5000 )
 
-            console.log( "personService.update response.data: ", response.data )
-            setPersons( persons.map( person => person.id !== dupe.id ? person : response.data ) )
+            // console.log( "personService.update response.data: ", response.data )
+            console.log( "map func: ", persons.map( person => person.id !== dupe.id ? person : newPerson ) )
+            setPersons( persons.map( person => person.id !== dupe.id ? person : newPerson ) )
           } )
           .catch( error =>
           {
+            console.log( error )
             props.setMessageType( "error" )
             props.setMessage( `Person '${ newPerson }' was already removed from server` )
             setTimeout( () => { props.setMessage( null ) }, 5000 )
-            
+
             setPersons( persons.filter( p => p.id !== dupe.id ) )
           } )
       }
