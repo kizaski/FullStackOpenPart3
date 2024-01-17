@@ -7,7 +7,9 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:ui": "shx rm -rf build && cd ./frontend && npm i && npm run build && shx cp -r build ../",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "eslint": "^8.45.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "shx": "^0.3.4"
   }
 }
