@@ -28,6 +28,12 @@ const PersonForm = ( props ) =>
 
         console.log( "personService.create response.data: ", response.data )
         setPersons( [ ...persons, response.data ] )
+      } ).catch( error =>
+      {
+        console.log( error.response.data.error )
+        props.setMessageType( "error" )
+        props.setMessage( `${ error.response.data.error }` )
+        setTimeout( () => { props.setMessage( null ) }, 5000 )
       } )
     }
     else
@@ -44,8 +50,9 @@ const PersonForm = ( props ) =>
             setTimeout( () => { props.setMessage( null ) }, 5000 )
 
             // console.log( "personService.update response.data: ", response.data )
-            console.log( "map func: ", persons.map( person => person.id !== dupe.id ? person : newPerson ) )
-            setPersons( persons.map( person => person.id !== dupe.id ? person : newPerson ) )
+            // console.log( "map func: ", persons.map( person => person.id !== dupe.id ? person : newPerson ) )
+            // setPersons( persons.map( person => person.id !== dupe.id ? person : newPerson ) )
+            setPersons( persons.map( person => person.id !== dupe.id ? person : response.data ) )
           } )
           .catch( error =>
           {
