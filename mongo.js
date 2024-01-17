@@ -25,7 +25,7 @@ const personSchema = new mongoose.Schema( {
             validator: function ( v )
             {
                 console.log("validating: ",v)
-                return /\d{4,}/.test( v )
+                return /[a-zA-Z]{3,}/.test( v )
             },
             message: props => `${ props.value } is not a valid name!`
         },
